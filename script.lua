@@ -17,6 +17,12 @@ color.loadpalette() -- Load Defaults colors
 
 -- ## IMMAGINE DI SFONDO ##
 back = image.load("resources/back.png")
+
+local wstrength = wlan.strength()
+if wstrength then
+    if wstrength > 55 then dofile("git/updater.lua") end
+end
+
 dofile("resources/usb.lua")
 
 while true do

@@ -5,3 +5,5 @@ The PSVITA tools do not have the ability to perform operations simultaneously vi
 - TheFloW Pkg installer & USB Modules.
 - Yifan-lu, XYZ and Davee and every coder and dev contributing to Vitasdk.
 - Team Molecule for Henkaku.
+- Chronoss09 for test (thank you)
+- Team Gamesandconsoles.org

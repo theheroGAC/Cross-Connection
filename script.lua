@@ -23,29 +23,37 @@ if wstrength then
     if wstrength > 55 then dofile("git/updater.lua") end
 end
 
+dofile("resources/crossconnection.lua")
 dofile("resources/usb.lua")
 
 while true do
 	buttons.read()
 	if back then back:blit(0,0) end
 	
-	screen.print(10,20,"To create a cross connection press CROSS to start the FTP and press Triangle to start USB.",1,color.red)
-	screen.print(360,160,"Press CROSS to start ftp.",1,color.white,color.blue)
-	screen.print(360,190,"Press TRIANGLE to connect USB.",1,color.white,color.blue)
-	screen.print(360,220,"Press SQUARE to restart HB.",1,color.white,color.blue)
-	screen.print(360,250,"Press START to exit.",1,color.white,color.blue)
-	screen.print(360,280, "Mac: "..tostring(os.mac()))
+	screen.print(10,20,"To create a cross connection press Triangle to start USB+FTP.",1,color.red)
+	screen.print(360,160,"Press CROSS to start FTP only.",1,color.white,color.blue)
+       screen.print(360,190,"Press CIRCLE to start USB only.",1,color.white,color.black)
+	screen.print(360,220,"Press TRIANGLE to cross connection (FTP+USB).",1,color.white,color.green)
+	screen.print(360,250,"Press SQUARE to restart/reset APP.",1,color.white,color.blue)
+	screen.print(360,280,"Press START to exit.",1,color.white,color.red)
+	screen.print(360,320, "Mac: "..tostring(os.mac()))
 
-	if ftp.state() then	screen.print(360,320,"Connect to:\nftp://"..tostring(wlan.getip())..":1337",1,color.green) end
+	if ftp.state() then	screen.print(360,350,"Connect to:\nftp://"..tostring(wlan.getip())..":1337",1,color.green) end
 
 	screen.flip() -- Show Buff
 
 	if buttons.cross then
 		wlan.connect()
 		ftp.init()
+end
+
+	if buttons.circle then usbMassStorage()
+
 	end
 
-	if buttons.triangle then usbMassStorage() end
+	if buttons.triangle then crossconnection()
+
+ end
 
 	if buttons.square then
 		ftp.term()

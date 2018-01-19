@@ -1,5 +1,5 @@
 --[[ 
-	ONElua.
+    ONElua.
 	Lua Interpreter for PlayStation®Vita.
 	
 	Licensed by GNU General Public License v3.0
@@ -23,7 +23,7 @@ if wstrength then
     if wstrength > 55 then dofile("git/updater.lua") end
 end
 
-dofile("resources/crossconnection.lua")
+--dofile("resources/crossconnection.lua")
 dofile("resources/usb.lua")
 
 while true do
@@ -43,17 +43,21 @@ while true do
 	screen.flip() -- Show Buff
 
 	if buttons.cross then
-		wlan.connect()
-		ftp.init()
-end
-
-	if buttons.circle then usbMassStorage()
-
+		if not wlan.isconnected() then wlan.connect() end
+		if wlan.isconnected() then ftp.init() end
 	end
 
-	if buttons.triangle then crossconnection()
+	if buttons.circle then
+		if ftp.state() then ftp.term() end
+		usbMassStorage()
+	end
 
- end
+	if buttons.triangle then --crossconnection()
+		if not wlan.isconnected() then wlan.connect() end
+		if wlan.isconnected() then ftp.init() end
+		if ftp.state() then usbMassStorage() end
+		ftp.term()
+	end
 
 	if buttons.square then
 		ftp.term()

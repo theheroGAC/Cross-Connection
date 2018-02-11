@@ -31,14 +31,15 @@ while true do
 	if back then back:blit(0,0) end
 	
 	screen.print(10,20,"To create a cross connection press Triangle to start USB+FTP.",1,color.red)
-	screen.print(360,160,"Press CROSS to start FTP only.",1,color.white,color.blue)
-       screen.print(360,190,"Press CIRCLE to start USB only.",1,color.white,color.black)
-	screen.print(360,220,"Press TRIANGLE to cross connection (FTP+USB).",1,color.white,color.green)
-	screen.print(360,250,"Press SQUARE to restart/reset APP.",1,color.white,color.blue)
-	screen.print(360,280,"Press START to exit.",1,color.white,color.red)
-	screen.print(360,320, "Mac: "..tostring(os.mac()))
+	screen.print(340,160,"Press CROSS to start FTP only.",1,color.white,color.blue)
+       screen.print(340,190,"Press CIRCLE to start USB only.",1,color.white,color.black)
+       screen.print(340,220,"Press SELECT to start ADHOC only.",1,color.white,color.blue)
+       screen.print(340,250,"Press TRIANGLE to cross connection (FTP+USB).",1,color.white,color.green)
+	screen.print(340,280,"Press SQUARE to restart/reset APP.",1,color.white,color.blue)
+	screen.print(340,320,"Press START to exit.",1,color.white,color.red)
+	screen.print(340,350, "Mac: "..tostring(os.mac()))
 
-	if ftp.state() then	screen.print(360,350,"Connect to:\nftp://"..tostring(wlan.getip())..":1337",1,color.green) end
+	if ftp.state() then	screen.print(340,380,"Connect to:\nftp://"..tostring(wlan.getip())..":1337",1,color.green) end
 
 	screen.flip() -- Show Buff
 
@@ -58,6 +59,11 @@ while true do
 		if ftp.state() then usbMassStorage() end
 		ftp.term()
 	end
+
+if buttons.select then
+		dofile("resources/adhoc.lua")	
+end
+
 
 	if buttons.square then
 		ftp.term()
